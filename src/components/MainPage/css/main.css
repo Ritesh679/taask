@@ -1,0 +1,52 @@
+.main {
+  padding: 50px;
+  height: 100vh;
+}
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+.note-form textarea {
+  border: 1px solid lightgray;
+  height: 100px;
+  padding: 10px;
+  outline: none;
+}
+.note-form button {
+  width: 100%;
+  background-color: #fff27f;
+  cursor: pointer;
+  padding: 10px;
+  border: 0;
+  outline: none;
+}
+.note-form button:hover {
+  background-color: tomato;
+  color: white;
+}
+
+.note {
+  position: absolute;
+  cursor: pointer;
+  background-image: url("../../../sticky.jpg");
+  color: black;
+  top: 100px;
+  left: 300px;
+  height: 100px;
+  width: 100px;
+  padding: 20px;
+}
+.note .close {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  transition: transform 0.2s ease;
+}
+.note .close:hover {
+  transform: scale(1.2);
+  color: red;
+}/*# sourceMappingURL=main.css.map */
