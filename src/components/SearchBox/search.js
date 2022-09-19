@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './search.css'
 import 'https://kit.fontawesome.com/adf8e2a534.js';
 
 const Search = () => {
+    const [inputText,setInputText] = useState("");
+    const inputHandler = (e) => {
+        var lowerCase = e.target.value.toLowerCase();
+        setInputText(lowerCase);
+    }
     const searchboxHandler = () =>{
         let name = document.getElementById('search-text').value;
-        return `https://www.google.com/?q=${name}`
+        // console.log(name)
     }
     return (
         <div className='search'>
@@ -15,11 +20,10 @@ const Search = () => {
                 <li className='list'>Videos</li>
                 <li className='list'>News</li>
             </div>
-            <div className='searchbox'>
-                <input id='search-text' type='text' className='search--text'/>
-                <i className="search-icon fa fa-search" aria-hidden="true" onClick={searchboxHandler}></i>
-           
-            </div>
+            <form action='https://www.google.com/search?q=' method='get' target='__blank' className='searchbox'>
+                <input name='q' id='search-text' type='text' value={inputText} className='search--text' onChange={inputHandler}/>
+                <button className="search-icon fa fa-search" aria-hidden="true"></button>
+            </form>
         </div>
     );
 }

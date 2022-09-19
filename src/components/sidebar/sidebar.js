@@ -2,6 +2,15 @@ import React from 'react';
 import './css/sidebar.css'
 
 const Sidebar = ({sidebar}) => {
+    const handleChange = (e) =>{
+        const checked = e.target.checked;
+        const sticky = document.querySelector('.sticky-notes');
+        sticky.classList.add('sticky-hide')
+        if(checked){
+            sticky.classList.remove('sticky-hide');       
+        }
+
+    }
     
     return (
         <div className={sidebar?"sidebar sidebar--open":"sidebar"}>
@@ -13,7 +22,7 @@ const Sidebar = ({sidebar}) => {
             <span className='lists'>
                 <li className='widget-slider'>Sticky Note
                     <label className="switch">
-                    <input type="checkbox"/>
+                    <input type="checkbox" id='sticky-toggler' onChange={handleChange}/>
                     <span className="slider round"></span>
                     </label>
                 </li>

@@ -17,3 +17,6 @@ footer{
 footer span{
   color:white;
 }
+.sticky-hide{
+  display: none;
+}

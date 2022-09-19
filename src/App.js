@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Sidebar from './components/sidebar/sidebar';
 import { useState } from 'react';
@@ -10,15 +9,16 @@ function App() {
   const toggleSidebar = () =>{
     setSidebar((prevState)=>!prevState)
   }
+  // console.log(check.checked)
   return (
-    <div className="App">
+    <div className="App">      
       <Main openSidebar = {toggleSidebar}/>
       <Sidebar sidebar={sidebar}/>
       <Search/>
       <footer>
         <span>Privacy policy</span> | <span>Terms &amp; conditions. </span>
         <span>All the rights reserved to &copy; Axeite Media LLC</span>
-      </footer>
+      </footer>      
     </div>
   );
 }

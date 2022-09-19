@@ -4,6 +4,7 @@
     margin: 1rem;
     justify-content: center;
     align-items: center;
+    z-index: 999;
 }
 .category{
     display: inline-flex;
