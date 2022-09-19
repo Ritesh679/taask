@@ -43,15 +43,16 @@
   margin: 10px;
   gap: 10px;
 }
-.wallpapers .local {
-  border: none;
-  color: white;
-  padding: 10px;
-  background-color: blue;
-}
-.wallpapers .local:hover {
-  background-color: darkblue;
+.wallpapers label {
   cursor: pointer;
+  padding: 5px;
+  background-color: gray;
+  color: white;
+}
+.wallpapers #local {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }
 .wallpapers .revert {
   padding: 10px;

@@ -51,7 +51,13 @@ const Sidebar = ({sidebar}) => {
             
             <h4 className='wallpaper'>Wallpaper</h4>
             <div className='wallpapers'>
-                <button className='local'>Use Local Wallpaper</button>
+                <label htmlFor='local'>Use Local File</label>
+                <input id='local' type='file' onChange={(e)=>{
+                    console.log(e.target.files[0]);
+                    const app = document.querySelector('.App');
+                    // app.style.backgroundImage = `url(${e.target.files[0].name})`
+                    app.style.backgroundImage = `e.target.files[0].name`
+                }}/>
                 <button className='revert'>Revert to default</button>
             </div>
         </div>

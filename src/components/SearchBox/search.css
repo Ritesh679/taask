@@ -52,6 +52,8 @@ li{
     padding: 11px;
     background-color: aliceblue;
     color: black;
+    border: 0;
+    height: 38px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
