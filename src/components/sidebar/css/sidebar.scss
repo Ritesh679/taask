@@ -6,10 +6,14 @@
     right: 0;
     height: 100vh;
     width: 280px;  
-    transform: translateX(100%);
-}
-.sidebar--open{
-    transform: translateX(0%); 
+    transform: translateX(0%);
+    transition: 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  .sidebar--close{
+    // transform: translateX(100%);
+    // overflow: hidden;
+    display: none;
 }
 .sidebar li{
     list-style: none;

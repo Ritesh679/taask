@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/sidebar.css'
 
-const Sidebar = ({sidebar}) => {
+const Sidebar = ({sidebar}) => {  
+    const [checked,setChecked] = useState(true) ;
+    
     const handleChange = (e) =>{
-        const checked = e.target.checked;
+        setChecked(!checked);
+        console.log('after toggle',checked)
+        console.log(checked)
+        const clone= structuredClone(checked)
+        window.localStorage.setItem('checked',clone);
         const sticky = document.querySelector('.sticky-notes');
-        sticky.classList.add('sticky-hide')
-        if(checked){
-            sticky.classList.remove('sticky-hide');       
+        sticky.classList.remove('sticky-hide')
+        if(!checked){
+            sticky.classList.add('sticky-hide');       
         }
-
     }
+    useEffect(()=>{
+        const checked = (window.localStorage.getItem('checked'));
+        setChecked(Boolean(checked));
+        console.log(checked)  
+        if(Boolean(checked)){
+            console.log('checked--->true')
+        } 
+    },[])
     
     return (
-        <div className={sidebar?"sidebar sidebar--open":"sidebar"}>
+        <div className={sidebar?"sidebar sidebar--close":"sidebar"}>
             <div className='titles'>
                 <h2 className='setting'>Settings</h2>
             </div>
@@ -52,13 +65,25 @@ const Sidebar = ({sidebar}) => {
             <h4 className='wallpaper'>Wallpaper</h4>
             <div className='wallpapers'>
                 <label htmlFor='local'>Use Local File</label>
-                <input id='local' type='file' onChange={(e)=>{
-                    console.log(e.target.files[0]);
+                <input type='file' id='local' onChange={(e)=>{
+                    console.log(e.target.value)
+                    console.log(e.target.files)
+                    var fakeUrl = window.URL.createObjectURL(e.target.files[0])
+                    console.log(fakeUrl)
+                    window.localStorage.setItem('image',fakeUrl);
                     const app = document.querySelector('.App');
-                    // app.style.backgroundImage = `url(${e.target.files[0].name})`
-                    app.style.backgroundImage = `e.target.files[0].name`
+                    app.style.backgroundImage = `url(${fakeUrl})`;
                 }}/>
-                <button className='revert'>Revert to default</button>
+
+
+
+
+                <button className='revert' onClick={(e)=>{
+                    const app = document.querySelector('.App');
+                    app.style.backgroundImage = 'url(https://media.istockphoto.com/photos/abstract-geometric-network-polygon-globe-graphic-background-picture-id1208738316?b=1&k=20&m=1208738316&s=170667a&w=0&h=f4KWULKjL770nceDM6xi32EbfIgMtBwSp5fPxIx08wc=)'
+                    e.preventDefault();
+                    window.localStorage.clear();
+                }}>Revert to default</button>
             </div>
         </div>
     );
