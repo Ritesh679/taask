@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import './css/sidebar.css'
 
-const Sidebar = ({sidebar}) => {  
-    const [checked,setChecked] = useState(true) ;
-    
-    const handleChange = (e) =>{
-        setChecked(!checked);
-        console.log('after toggle',checked)
-        console.log(checked)
-        const clone= structuredClone(checked)
-        window.localStorage.setItem('checked',clone);
-        const sticky = document.querySelector('.sticky-notes');
-        sticky.classList.remove('sticky-hide')
-        if(!checked){
-            sticky.classList.add('sticky-hide');       
-        }
+function isChecked(){
+    const checked = localStorage.getItem("checked");
+    if(!checked || checked === "false"){
+        return false
     }
-    useEffect(()=>{
-        const checked = (window.localStorage.getItem('checked'));
-        setChecked(Boolean(checked));
-        console.log(checked)  
-        if(Boolean(checked)){
-            console.log('checked--->true')
-        } 
-    },[])
+    return true
+}
+
+function handleCheckChange(checked){
+    const sticky = document.querySelector('.sticky-notes');
+    if(!checked) {
+        sticky.classList.add('sticky-hide');
+    }else{
+        sticky.classList.remove('sticky-hide');
+    }
+}
+
+const Sidebar = ({sidebar}) => {  
+    const [checked,setChecked] = useState(() => isChecked() );
+
+    const handleChange = (e) =>{
+        let newValue = !checked;
+        setChecked(newValue)        
+        localStorage.setItem('checked',newValue)
+        handleCheckChange(newValue)
+    }
+
+    useEffect(() => {
+        handleCheckChange(checked)
+    },[checked])
+
     
     return (
         <div className={sidebar?"sidebar sidebar--close":"sidebar"}>
@@ -35,7 +43,7 @@ const Sidebar = ({sidebar}) => {
             <span className='lists'>
                 <li className='widget-slider'>Sticky Note
                     <label className="switch">
-                    <input type="checkbox" id='sticky-toggler' onChange={handleChange}/>
+                    <input type="checkbox" checked={checked} id='sticky-toggler' onChange={handleChange}/>
                     <span className="slider round"></span>
                     </label>
                 </li>
@@ -68,9 +76,9 @@ const Sidebar = ({sidebar}) => {
                 <input type='file' id='local' onChange={(e)=>{
                     console.log(e.target.value)
                     console.log(e.target.files)
-                    var fakeUrl = window.URL.createObjectURL(e.target.files[0])
+                    var fakeUrl = URL.createObjectURL(e.target.files[0])
                     console.log(fakeUrl)
-                    window.localStorage.setItem('image',fakeUrl);
+                    sessionStorage.setItem('image',fakeUrl);
                     const app = document.querySelector('.App');
                     app.style.backgroundImage = `url(${fakeUrl})`;
                 }}/>

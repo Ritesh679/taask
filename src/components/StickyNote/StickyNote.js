@@ -6,30 +6,29 @@ import {v4 as uuid} from 'uuid';
 const initialNotesState = {
     notes:[],
 };
-const notesReducer = (prevState,action)=> {
-    // eslint-disable-next-line default-case
-    switch(action.type){
-        case 'ADD_NOTE' : {
-            const newState = {
-                notes:[...prevState.notes,action.payload]
-            };
-            console.log('After ADD_NOTE',newState);
-            window.localStorage.setItem('notes',JSON.stringify(newState.notes))
-            return newState;
-        }
-        case 'DELETE_NOTE':{
-            const newState = {
-                ...prevState,
-                notes:prevState.notes.filter(note=>note.id !==action.payload.id)
+
+const StickyNote = ({openSidebar}) => {
+    const notesReducer = (prevState,action)=> {
+        // eslint-disable-next-line default-case
+        switch(action.type){
+            case 'ADD_NOTE' : {
+                const newState = {
+                    notes:[...prevState.notes,action.payload]
+                };
+                console.log('After ADD_NOTE',newState);
+                window.localStorage.setItem('notes',JSON.stringify(newState.notes))
+                return newState;
             }
-            window.localStorage.setItem('notes',JSON.stringify(newState.notes));
-            return newState;
+            case 'DELETE_NOTE':{
+                const newState = {
+                    ...prevState,
+                    notes:prevState.notes.filter(note=>note.id !==action.payload.id)
+                }
+                window.localStorage.setItem('notes',JSON.stringify(newState.notes));
+                return newState;
+            }
         }
     }
-}
-
-const Main = ({openSidebar}) => {
-
     const [notesState,dispatch] = useReducer(notesReducer,initialNotesState)
     const [noteInput,setNoteInput] = useState('')
     const addNote = (e) => {
@@ -69,7 +68,7 @@ const Main = ({openSidebar}) => {
             <div className='test' onDragOver={dragOver}>
                 <button onClick={openSidebar}>test</button>
             </div>
-            <div className={`sticky-notes`}>
+            <div className='sticky-notes'>
                 <form onSubmit={addNote} className='note-form'>
                     <textarea value={noteInput} onChange={e=>setNoteInput(e.target.value)} placeholder='Create a sticky note...'/>
                     <button>Add</button>
@@ -90,4 +89,4 @@ const Main = ({openSidebar}) => {
     );
 }
 
-export default Main;
+export default StickyNote;

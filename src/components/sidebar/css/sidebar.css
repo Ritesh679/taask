@@ -9,6 +9,7 @@
   transform: translateX(0%);
   transition: 0.3s ease-in-out;
   overflow: hidden;
+  z-index: 99;
 }
 
 .sidebar--close {
