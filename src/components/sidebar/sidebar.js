@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './css/sidebar.css'
 
 function isChecked(localChecked){
@@ -18,9 +18,13 @@ function handleCheckChange(checked){
     }
 }
 
+
+
 const Sidebar = ({sidebar}) => {  
     const [stickyChecked,setStickyChecked] = useState(() => isChecked('StickyChecked') );
     const [clockChecked,setClockChecked] = useState(()=>isChecked('clockChecked'));
+    let [isOpen,setIsOpen] = useState(false)
+    let sideRef = useRef();
 
     const handleStickyChange = (e) =>{
         let newValue = !stickyChecked;
@@ -35,38 +39,39 @@ const Sidebar = ({sidebar}) => {
     }
 
     useEffect(() => {
-        handleCheckChange(stickyChecked)
+        handleCheckChange(stickyChecked);
+        
         // handleCheckChange(clockChecked)
     },[stickyChecked,clockChecked])
 
     
     return (
-        <div className={sidebar?"sidebar sidebar--close":"sidebar"}>
+        <div ref={sideRef} className={sidebar?"sidebar sidebar--close":"sidebar"}>
             <div className='titles'>
                 <h2 className='setting'>Settings</h2>
             </div>
             <div className='widgets'>
                 <h4 className='widget'>Widgets</h4>
-            <span className='lists'>
-                <li className='widget-slider'>Sticky Note
-                    <label className="switch">
-                    <input type="checkbox" checked={stickyChecked} id='sticky-toggler' onChange={handleStickyChange}/>
-                    <span className="slider round"></span>
-                    </label>
-                </li>
-                <li className='widget-slider'>Clock
-                    <label className="switch">
-                    <input type="checkbox" checked={clockChecked} id='clock-toggler' onChange={handleClockChange}/>
-                    <span className="slider round"></span>
-                    </label>
-                </li>
-                <li className='widget-slider'>Player
-                    <label className="switch">
-                    <input type="checkbox"/>
-                    <span className="slider round"></span>
-                    </label>
-                </li>
-            </span>
+                <div className='lists'>
+                    <li className='widget-slider'>Sticky Note
+                        <label className="switch">
+                        <input type="checkbox" checked={stickyChecked} id='sticky-toggler' onChange={handleStickyChange}/>
+                        <span className="slider round"></span>
+                        </label>
+                    </li>
+                    <li className='widget-slider'>Clock
+                        <label className="switch">
+                        <input type="checkbox" checked={clockChecked} id='clock-toggler' onChange={handleClockChange}/>
+                        <span className="slider round"></span>
+                        </label>
+                    </li>
+                    <li className='widget-slider'>Player
+                        <label className="switch">
+                        <input type="checkbox"/>
+                        <span className="slider round"></span>
+                        </label>
+                    </li>
+                </div>
             <div className='radio'>
                 <label htmlFor= 'Spotify'>Spotify</label>
                 <input type='radio' name='Spotify'/>

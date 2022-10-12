@@ -24,7 +24,7 @@ const StickyNote = ({openSidebar}) => {
                     ...prevState,
                     notes:prevState.notes.filter(note=>note.id !==action.payload.id)
                 }
-                window.localStorage.setItem('notes',JSON.stringify(newState.notes));
+                localStorage.setItem('notes',JSON.stringify(newState.notes));
                 return newState;
             }
         }

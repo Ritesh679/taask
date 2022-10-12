@@ -1,7 +1,6 @@
 .main{
     padding: 50px;
     height: 100vh;    
-    max-width: 100vw;
 }
 .note-form{
     display: flex;
@@ -10,8 +9,6 @@
 
     textarea{
         border: 1px solid lightgray;
-        // min-width: 100%;
-        // max-width: 100%;
         height: 100px;
         padding: 10px;
         outline: none;
