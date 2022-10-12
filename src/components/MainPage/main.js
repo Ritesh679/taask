@@ -67,7 +67,9 @@ const Main = ({openSidebar}) => {
     return (
         <div className='main'>
             <div className='test' onDragOver={dragOver}>
-                <button onClick={openSidebar}>test</button>
+                <button className='btn-primary' onClick={openSidebar}>
+                <i className="fa fa-cog" aria-hidden="true"></i>
+                </button>
             </div>
             <div className={`sticky-notes`}>
                 <form onSubmit={addNote} className='note-form'>

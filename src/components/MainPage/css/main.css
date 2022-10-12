@@ -49,4 +49,12 @@
 .note .close:hover {
   transform: scale(1.2);
   color: red;
+}
+
+.btn-primary {
+  border: none;
+  font-size: 20px;
+  padding: 10px;
+  background-color: none;
+  border-radius: 10px;
 }/*# sourceMappingURL=main.css.map */

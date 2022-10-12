@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './css/sidebar.css'
 
-function isChecked(){
-    const checked = localStorage.getItem("checked");
+function isChecked(localChecked){
+    const checked = localStorage.getItem(localChecked);
     if(!checked || checked === "false"){
         return false
     }
@@ -19,18 +19,25 @@ function handleCheckChange(checked){
 }
 
 const Sidebar = ({sidebar}) => {  
-    const [checked,setChecked] = useState(() => isChecked() );
+    const [stickyChecked,setStickyChecked] = useState(() => isChecked('StickyChecked') );
+    const [clockChecked,setClockChecked] = useState(()=>isChecked('clockChecked'));
 
-    const handleChange = (e) =>{
-        let newValue = !checked;
-        setChecked(newValue)        
-        localStorage.setItem('checked',newValue)
+    const handleStickyChange = (e) =>{
+        let newValue = !stickyChecked;
+        setStickyChecked(newValue)        
+        localStorage.setItem('StickyChecked',newValue)
         handleCheckChange(newValue)
+    }
+    const handleClockChange =() =>{
+        setClockChecked(!clockChecked);
+        localStorage.setItem('ClockChecked',!clockChecked)
+        handleCheckChange(!clockChecked)
     }
 
     useEffect(() => {
-        handleCheckChange(checked)
-    },[checked])
+        handleCheckChange(stickyChecked)
+        // handleCheckChange(clockChecked)
+    },[stickyChecked,clockChecked])
 
     
     return (
@@ -43,13 +50,13 @@ const Sidebar = ({sidebar}) => {
             <span className='lists'>
                 <li className='widget-slider'>Sticky Note
                     <label className="switch">
-                    <input type="checkbox" checked={checked} id='sticky-toggler' onChange={handleChange}/>
+                    <input type="checkbox" checked={stickyChecked} id='sticky-toggler' onChange={handleStickyChange}/>
                     <span className="slider round"></span>
                     </label>
                 </li>
                 <li className='widget-slider'>Clock
                     <label className="switch">
-                    <input type="checkbox"/>
+                    <input type="checkbox" checked={clockChecked} id='clock-toggler' onChange={handleClockChange}/>
                     <span className="slider round"></span>
                     </label>
                 </li>

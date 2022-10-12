@@ -15,8 +15,6 @@ function App() {
     if(temp_bg){
       setBgImg(temp_bg);
     }
-    // setBgImg(bgImg);
-    // console.log(bgImg)
   },[bgImg])
   return (
     <div className="App" style={{backgroundImage:`url(${bgImg})`}}>      
